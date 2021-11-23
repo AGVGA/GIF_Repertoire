@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="Content-Security-Policy"
+      content="default-src: http: https: 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title> 17911A05J4 Mini Project </title>
+    <style>
+      html {
+        font-size: 20px;
+        line-height: 1.6;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      form * {
+        font-family: inherit;
+        font-size: inherit;
+      }
+      img {
+        max-width: auto;
+        max-height: auto;
+      }
+
+
+    </style>
+	<style>
+		.multicolortext {
+        background-image: linear-gradient(to left, violet, indigo, green, blue, yellow, orange, red);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+	</style>
+
+	<style>
+			.button {
+  background-color: MidnightBlue;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+	.button1 {border-radius: 12px;}
+	</style>
+  </head>
+  <body>
+    <main>
+	<body style="background-color: White;">
+	<center>
+	<h1 style="font-family: Segoe Print;" >
+	<span class="multicolortext">GIF Repertoire</span>
+	</h1>
+	</center>
+	</body>
+	<b><h3><font face ="Times New Roman" color="DarkTurquoise">A Random GIF Generator!</font></h3></b>
+	
+      <form>
+        <b><label for="search" style="font-family: Segoe Script;">Key Word</label></b>&nbsp
+        <input id="search" type="search" />&nbsp
+	<button id="btnSearch" class="button button1">Generate</button>
+      </form>
+	<center>
+      <div class="out"></div>
+	</center>
+    </main>
+
+<footer style="color: Orchid;">
+  &nbsp<p>A project by : 
+</footer>
+<footer style="color: SeaGreen;">
+ A. Aditya<br></p>
+</footer>
+
+    <script>
+      let APIKEY = "dc6zaTOxFJmzC";
+      document.addEventListener("DOMContentLoaded", init);
+      function init() {
+        document.getElementById("btnSearch").addEventListener("click", ev => {
+          ev.preventDefault(); //to stop the page reload
+          let url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKEY}&limit=1&q=`;
+          let str = document.getElementById("search").value.trim();
+          url = url.concat(str);
+          console.log(url);
+          fetch(url)
+            .then(response => response.json())
+            .then(content => {
+              console.log(content.data);
+              console.log("META", content.meta);
+              let fig = document.createElement("figure");
+              let img = document.createElement("img");
+              let fc = document.createElement("figcaption");
+              img.src = content.data[0].images.downsized.url;
+              img.alt = content.data[0].title;
+              fig.appendChild(img);
+              fig.appendChild(fc);
+              let out = document.querySelector(".out");
+              out.insertAdjacentElement("afterbegin", fig);
+              document.querySelector("#search").value = "";
+            })
+            .catch(err => {
+              console.error(err);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
